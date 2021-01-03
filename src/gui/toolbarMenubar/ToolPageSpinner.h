@@ -29,6 +29,7 @@ public:
     SpinPageAdapter* getPageSpinner();
     void setText(const string& text);
     virtual string getToolDisplayName();
+    virtual GtkToolItem* createItem(bool horizontal);
 
 protected:
     virtual GtkToolItem* newItem();
@@ -39,4 +40,5 @@ private:
 
     SpinPageAdapter* pageSpinner = nullptr;
     GtkWidget* lbPageNo = nullptr;
+    bool horizontal = true;
 };

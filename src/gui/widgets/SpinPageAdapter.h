@@ -24,6 +24,7 @@ class SpinPageListener;
 class SpinPageAdapter {
 public:
     SpinPageAdapter();
+    explicit SpinPageAdapter(const SpinPageAdapter* adapter);
     virtual ~SpinPageAdapter();
 
 public:
@@ -45,6 +46,8 @@ private:
 private:
     GtkWidget* widget;
     size_t page;
+    size_t min;
+    size_t max;
 
     int lastTimeoutId;
     std::list<SpinPageListener*> listener;
