@@ -10,6 +10,12 @@ SpinPageAdapter::SpinPageAdapter() {
     this->page = -1;
 }
 
+SpinPageAdapter::SpinPageAdapter(const SpinPageAdapter* adapter): SpinPageAdapter() {
+    this->setPage(adapter->getPage());
+    this->setMinMaxPage(adapter->min, adapter->max);
+    listener.assign(adapter->listener.begin(), adapter->listener.end());
+}
+
 SpinPageAdapter::~SpinPageAdapter() {
     g_object_unref(this->widget);
     this->widget = nullptr;
@@ -33,7 +39,7 @@ void SpinPageAdapter::pageNrSpinChangedCallback(GtkSpinButton* spinbutton, SpinP
         g_source_remove(adapter->lastTimeoutId);
     }
 
-    // Give the spin button some time to realease, if we don't do he will send new events...
+    // Give the spin button some time to release, if we don't do he will send new events...
     adapter->lastTimeoutId = g_timeout_add(100, reinterpret_cast<GSourceFunc>(pageNrSpinChangedTimerCallback), adapter);
 }
 
@@ -47,6 +53,8 @@ void SpinPageAdapter::setPage(size_t page) {
 }
 
 void SpinPageAdapter::setMinMaxPage(size_t min, size_t max) {
+    this->min = min;
+    this->max = max;
     gtk_spin_button_set_range(GTK_SPIN_BUTTON(this->widget), min, max);
 }
 
