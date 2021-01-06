@@ -690,6 +690,7 @@ void SettingsDialog::save() {
         settings->setAudioInputDevice(static_cast<int>(this->audioInputDevices[selectedInputDeviceIndex].getIndex()));
     }
 
+
     int selectedOutputDeviceIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(get("cbAudioOutputDevice"))) - 1;
     if (selectedOutputDeviceIndex >= 0 &&
         selectedOutputDeviceIndex < static_cast<int>(this->audioOutputDevices.size())) {
